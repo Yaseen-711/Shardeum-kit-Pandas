@@ -1,51 +1,75 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  :root {
-    --background: 240 10% 4%; /* Deep dark */
-    --foreground: 0 0% 98%;
-    --card: 240 10% 8%; /* Slightly lighter dark */
-    --card-foreground: 0 0% 98%;
-    --primary: 252 64% 56%; /* Vibrant purple-blue */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 240 5% 15%;
-    --secondary-foreground: 0 0% 98%;
-    --accent: 280 65% 60%; /* Vibrant purple */
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-    --success: 142 71% 45%;
-    --success-foreground: 0 0% 98%;
-    --border: 240 10% 15%;
-    --ring: 252 64% 56%;
-    --radius: 1rem;
-  }
+:root {
+  --bg: #080b10;
+  --surface: #0d1117;
+  --surface2: #161b22;
+  --border: #21262d;
+  --border-glow: #00e5ff33;
+  --accent: #00e5ff;
+  --accent2: #7c3aed;
+  --accent3: #10b981;
+  --danger: #ef4444;
+  --warn: #f59e0b;
+  --text: #e6edf3;
+  --text-muted: #8b949e;
+  --text-dim: #484f58;
+  --font-mono: 'Space Mono', monospace;
+  --font-ui: 'Syne', sans-serif;
+  --radius: 8px;
+  --glow: 0 0 20px #00e5ff22, 0 0 40px #00e5ff11;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-    font-family: 'Inter', system-ui, sans-serif;
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* Glassmorphism utilities */
-.glass-panel {
-  @apply bg-card/60 backdrop-blur-xl border border-white/10 shadow-2xl;
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, #00e5ff08 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 100% 80%, #7c3aed06 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* Subtle glow animations */
+#root { position: relative; z-index: 1; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 @keyframes pulse-glow {
-  0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
-  70% { box-shadow: 0 0 20px 10px rgba(139, 92, 246, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 #00e5ff22; }
+  50% { box-shadow: 0 0 0 6px #00e5ff00; }
 }
-.btn-glow:hover {
-  animation: pulse-glow 1.5s infinite;
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  /* App grid becomes single column */
 }
